@@ -28,6 +28,5 @@ class Recorder(object):
         '''
         success, image = self.video.read()
         ret, jpeg = cv2.imencode('.jpg', image)
-        jpeg_encoded_image = jpeg.tostring()
-        return jpeg_encoded_image
+        return jpeg
 

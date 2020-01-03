@@ -5,10 +5,14 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>DIY Survailence System</title>
+    <link rel= "stylesheet" type= "text/css" href= "{{ url_for('static', filename='css/style.css') }}">
 </head>
 <body>
-    <h1>DIY Survailence System</h1>
-    <p>Running the app.py</p>
-    <img src="{{ url_for('video_feed') }}">
+    <div class="container">
+        <h1>DIY Survailence System</h1>
+        <p>Running the app.py</p>
+        <img src="{{ url_for('video_feed') }}">
+        <img src="{{ url_for('video_feed') }}">
+    </div>
 </body>
 </html>
