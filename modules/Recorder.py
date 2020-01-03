@@ -9,6 +9,8 @@ class Recorder(object):
         camera_num(int) id of the camera you want to capture with
         '''
         self.video = cv2.VideoCapture(camera_num)
+        self.video.set(3, 480)
+        self.video.set(4, 360)
 
     def __del__(self):
         '''
@@ -29,6 +31,3 @@ class Recorder(object):
         jpeg_encoded_image = jpeg.tostring()
         return jpeg_encoded_image
 
-#class testing:
-#camera_one = Recorder(0)
-#print(camera_one.get_frame())

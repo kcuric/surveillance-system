@@ -21,6 +21,6 @@ class Streamer(object):
         while True:
             frame = self.camera.get_frame()
             length = len(frame)
-            # print("Len: " + str(length))
             if(length < 65536):
                 self.sock.sendto(frame, self.server_address)
+                print("sent to server")
