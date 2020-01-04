@@ -13,6 +13,7 @@ port = 5005
 server_adress = (ip, port)
 
 sock = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
+sock.setsockopt(socket.SOL_SOCKET, socket.SO_REUSEADDR, 1)
 sock.bind(server_adress)
 
 # DETECTOR CONFIG
