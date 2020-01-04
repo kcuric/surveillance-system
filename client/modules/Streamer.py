@@ -1,5 +1,4 @@
 import socket
-from modules.Recorder import Recorder
 
 class Streamer(object):
     '''
@@ -9,10 +8,10 @@ class Streamer(object):
     host(str) IP address of a server to stream to
     port(str) port of a server to stream to
     '''
-    def __init__(self, host, port, camera_num):
+    def __init__(self, host, port, recorder):
         self.sock = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
         self.server_address = (host, port)
-        self.camera = Recorder(camera_num)
+        self.camera = recorder
 
     '''
     Gets a frame from camera and sends it to the server via UDP.
