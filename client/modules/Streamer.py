@@ -8,10 +8,9 @@ class Streamer(object):
     host(str) IP address of a server to stream to
     port(str) port of a server to stream to
     '''
-    def __init__(self, host, port, recorder):
+    def __init__(self, host, port):
         self.sock = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
         self.server_address = (host, port)
-        self.camera = recorder
 
     '''
     Finalizer which is called after all the references to the object
@@ -23,10 +22,8 @@ class Streamer(object):
     '''
     Gets a frame from camera and sends it to the server via UDP.
     '''
-    def send_to_server(self):
-        while True:
-            frame = self.camera.get_frame()
-            length = len(frame)
-            if(length < 65536):
-                self.sock.sendto(frame, self.server_address)
-                print("sent to server")
+    def send_to_server(self, payload):
+        length = len(payload)
+        if(length < 65536):
+            self.sock.sendto(payload, self.server_address)
+            print("Sent to server! Payload size: {}".format(len(payload)))
