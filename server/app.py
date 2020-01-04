@@ -1,4 +1,4 @@
-from flask import Flask, render_template, Response
+from flask import Flask, render_template, Response, jsonify
 from modules.Detector import Detector
 import socket, sys, signal
 
@@ -20,6 +20,7 @@ for port in ports:
 
 # DETECTOR CONFIG
 detector = Detector()
+face_detected = dict()
 
 # SIGNAL HANDLING
 def receive_signal(signal_number, frame):
@@ -33,11 +34,14 @@ def receive_signal(signal_number, frame):
     print("Application exited.")
     sys.exit()
 
-def rec(sock):
+def rec(sock, camera_num):
+    global face_detected
     while True:
         data, addr = sock.recvfrom(65535)
         if(detector.find_faces(data)):
-            print("INTRUDER!")
+            face_detected[camera_num] = True
+        else:
+            face_detected[camera_num] = False
         yield (b'--frame\r\n'
                 b'Content-Type: image/jpeg\r\n\r\n' + data + b'\r\n')
 
@@ -47,11 +51,21 @@ def index():
 
 @app.route('/camera1')
 def camera1():
-    return Response(rec(sockets[0]), mimetype='multipart/x-mixed-replace; boundary=frame')
+    return Response(
+        rec(sockets[0], 1), 
+        mimetype='multipart/x-mixed-replace; boundary=frame', 
+    )
 
 @app.route('/camera2')
 def camera2():
-    return Response(rec(sockets[1]), mimetype='multipart/x-mixed-replace; boundary=frame')
+    return Response(
+        rec(sockets[1], 2), 
+        mimetype='multipart/x-mixed-replace; boundary=frame',
+    )
+
+@app.route('/face_detected')
+def check_for_faces():
+    return jsonify(face_detected)
 
 if __name__ == '__main__':
     signal.signal(signal.SIGINT, receive_signal)

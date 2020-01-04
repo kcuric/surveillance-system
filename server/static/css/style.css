@@ -32,3 +32,15 @@ img{
     padding: 10px;
     float: left;
 }
+
+ul{
+    list-style: none;
+}
+
+.normal{
+    color: green;
+}
+
+.warning{
+    color: red;
+}

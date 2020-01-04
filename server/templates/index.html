@@ -5,7 +5,12 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>DIY Survailence System</title>
+    <script
+    src="https://code.jquery.com/jquery-3.4.1.min.js"
+    integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo="
+    crossorigin="anonymous"></script>
     <link rel= "stylesheet" type= "text/css" href= "{{ url_for('static', filename='css/style.css') }}">
+    <script type="text/javascript" src= "{{ url_for('static', filename='js/app.js') }}"></script>
 </head>
 <body>
     <div class="container">
@@ -13,6 +18,9 @@
         <p>Running the app.py</p>
         <img src="{{ url_for('camera1') }}">
         <img src="{{ url_for('camera2') }}">
+        <p id="detection"></p>
+        <ul id="camera_info"></ul>
+
     </div>
 </body>
 </html>
