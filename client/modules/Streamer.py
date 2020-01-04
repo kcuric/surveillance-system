@@ -14,6 +14,13 @@ class Streamer(object):
         self.camera = recorder
 
     '''
+    Finalizer which is called after all the references to the object
+    have been deleted.
+    '''
+    def __del__(self):
+        self.sock.close()
+
+    '''
     Gets a frame from camera and sends it to the server via UDP.
     '''
     def send_to_server(self):
