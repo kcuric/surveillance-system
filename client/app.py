@@ -6,7 +6,7 @@ import argparse
 
 parser = argparse.ArgumentParser()
 parser.add_argument('port', metavar='P', type=int, help='Desired port.')
-parser.add_argument('--cam', metavar='C', type=int, nargs='?', const=0, help='Desired cam.')
+parser.add_argument('--cam', metavar='C', type=int, nargs='?', const=0, help='Desired cam.', default=0)
 args = parser.parse_args()
 
 recorder = Recorder(args.cam)
