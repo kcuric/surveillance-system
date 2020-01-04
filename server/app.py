@@ -1,6 +1,6 @@
 from flask import Flask, render_template, Response
 from modules.Detector import Detector
-import socket
+import socket, sys, signal
 
 # FLASK CONFIG
 app = Flask(__name__)
@@ -26,6 +26,17 @@ def rec():
         yield (b'--frame\r\n'
                 b'Content-Type: image/jpeg\r\n\r\n' + data + b'\r\n')
 
+# SIGNAL HANDLING
+def receive_signal(signal_number, frame):
+    global detector, sock, app
+    del detector
+    print("\nDetector released.")
+    sock.close()
+    print("Socket closed.")
+    del app
+    print("Application exited.")
+    sys.exit()
+
 @app.route('/')
 def index():
     return render_template('index.html')
@@ -35,4 +46,7 @@ def video_feed():
     return Response(rec(), mimetype='multipart/x-mixed-replace; boundary=frame')
 
 if __name__ == '__main__':
+    signal.signal(signal.SIGINT, receive_signal)
+    signal.signal(signal.SIGQUIT, receive_signal)
+    signal.signal(signal.SIGTSTP, receive_signal)
     app.run(debug=True) #ssl_context='adhoc'
