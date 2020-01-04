@@ -1,9 +1,16 @@
 from modules.Streamer import Streamer
 from modules.Recorder import Recorder
-import sys, signal
+import sys
+import signal
+import argparse
 
-recorder = Recorder(0)
-stream = Streamer('127.0.0.1', 5005) #35.204.145.0
+parser = argparse.ArgumentParser()
+parser.add_argument('port', metavar='P', type=int, help='Desired port.')
+parser.add_argument('--cam', metavar='C', type=int, nargs='?', const=0, help='Desired cam.')
+args = parser.parse_args()
+
+recorder = Recorder(args.cam)
+stream = Streamer('127.0.0.1', args.port) #35.204.145.0
 
 # SIGNAL HANDLING
 def receive_signal(signal_number, frame):
