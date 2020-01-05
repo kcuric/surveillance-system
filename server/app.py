@@ -1,5 +1,6 @@
 from flask import Flask, render_template, Response, jsonify
 from modules.Detector import Detector
+from modules.EmailSender import EmailSender
 import socket, sys, signal
 
 # FLASK CONFIG
@@ -36,10 +37,15 @@ def receive_signal(signal_number, frame):
 
 def rec(sock, camera_num):
     global face_detected
+    email_sent = False
     while True:
         data, addr = sock.recvfrom(65535)
         if(detector.find_faces(data)):
             face_detected[camera_num] = True
+            if(email_sent == False):
+                sender = EmailSender(camera_num, data)
+                sender.send_email('kristoficmiro0@gmail.com')
+                email_sent = True
         else:
             face_detected[camera_num] = False
         yield (b'--frame\r\n'
