@@ -14,7 +14,8 @@ class EmailSender(object):
         self.camera_num = camera_num
 
     def send_email(self, receiver_mail):
-        filename = 'face.jpg'
+        now = datetime.now()
+        filename = now.strftime("%Y-%m-%d---%H-%M-%S") + ".jpg"
         path = '/tmp/' + filename
         sender = "sissurvailance@gmail.com"
         receiver = receiver_mail
@@ -22,7 +23,6 @@ class EmailSender(object):
         img_np = cv2.imdecode(nparr, cv2.IMREAD_COLOR)
         cv2.imwrite(path, img_np)
 
-        now = datetime.now()
         date_and_time = now.strftime("%d.%m.%Y. %H:%M:%S")
 
         msg = MIMEMultipart()
@@ -32,7 +32,7 @@ class EmailSender(object):
         body = f"At {date_and_time}, camera #{self.camera_num} detected a face. Find attached image with the detected face."
         msg.attach(MIMEText(body, 'plain'))
 
-        attachment = open("/tmp/face.jpg", "rb")
+        attachment = open(path, "rb")
         p = MIMEBase('application', 'octet-stream')
         p.set_payload((attachment).read())
         encoders.encode_base64(p)
