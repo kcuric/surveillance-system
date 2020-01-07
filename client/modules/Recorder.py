@@ -27,6 +27,6 @@ class Recorder(object):
         jpeg_encoded_string(str) jpeg encoded image converted to string
         '''
         success, image = self.video.read()
-        ret, jpeg = cv2.imencode('.jpg', image)
+        encode_param = [int(cv2.IMWRITE_JPEG_QUALITY), 75]
+        ret, jpeg = cv2.imencode('.jpg', image, encode_param)
         return jpeg
-
