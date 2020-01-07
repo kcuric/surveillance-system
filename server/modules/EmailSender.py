@@ -29,7 +29,7 @@ class EmailSender(object):
         msg['From'] = sender
         msg['To'] = receiver
         msg['Subject'] = "Face detected"
-        body = f"At {date_and_time}, camera #{self.camera_num} detected a face. Find attached image with the detected face."
+        body = "At {}, camera #{} detected a face. Find attached image with the detected face.".format(date_and_time, self.camera_num)
         msg.attach(MIMEText(body, 'plain'))
 
         attachment = open(path, "rb")
@@ -50,6 +50,6 @@ class EmailSender(object):
             text = msg.as_string()
             smtpObj.sendmail(sender, receiver, text)
             smtpObj.quit()
-            print(f"Email sent to {receiver}.")
+            print("Email sent to {}.".format(receiver))
         except Exception as e:
             print("Unable to send the email.")
