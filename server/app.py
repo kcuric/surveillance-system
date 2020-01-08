@@ -77,4 +77,4 @@ if __name__ == '__main__':
     signal.signal(signal.SIGINT, receive_signal)
     signal.signal(signal.SIGQUIT, receive_signal)
     signal.signal(signal.SIGTSTP, receive_signal)
-    app.run(debug=True) #ssl_context='adhoc'
+    app.run(debug=True, ssl_context='adhoc')
