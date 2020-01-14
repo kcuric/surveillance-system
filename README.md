@@ -37,4 +37,4 @@ v4l2-ctl --list-devices
 - Igor Košmerl
 - Miro Krištofić
 
-A huge thanks to our mentors  Doc. dr. sc. Petra Grd and Doc. dr. sc. Igor Tomičić and the [FOI Centre for Forensic, Biometry and Privacy](http://cfbp.foi.hr/), for all the guidelines, equipment, etc..
+A huge thanks to our mentors  Doc. dr. sc. Petra Grd, Doc. dr. sc. Igor Tomičić and the [FOI Centre for Forensic, Biometry and Privacy](http://cfbp.foi.hr/), for all the guidelines, equipment, etc..
